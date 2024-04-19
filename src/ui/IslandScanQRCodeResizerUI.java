@@ -88,8 +88,7 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
             }
             else {
                 BufferedImage resizedQRCode = resizedQRCodeGenerator.resizeQRCode(imagePath);
-                String fileName = getFileName(imagePath);
-                saveImage(resizedQRCode, fileName);
+                saveImage(resizedQRCode, imagePath);
             }
 
             if (doesImageFileFolderNotExistOrIsEmpty()) {
@@ -97,17 +96,13 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
             }
             else {
                 JOptionPane.showMessageDialog(this, "Your QR Codes have been successfully resized");
+                imageFilesInFolder = null;  //reset arraylist
             }
         }
     }
 
     private boolean doesImageFileFolderNotExistOrIsEmpty() {
         return imageFilesInFolder == null || imageFilesInFolder.isEmpty();
-    }
-
-    private String getFileName(String imagePath) {
-        File imageFile = new File(imagePath);
-        return imageFile.getName();
     }
 
     private void saveImage(BufferedImage resizedQRCode, String filePath) {
