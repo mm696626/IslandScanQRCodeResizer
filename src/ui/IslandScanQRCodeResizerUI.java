@@ -2,12 +2,14 @@ package ui;
 
 import io.ResizedQRCodeGenerator;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -52,6 +54,21 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
             }
 
             ResizedQRCodeGenerator resizedQRCodeGenerator = new ResizedQRCodeGenerator();
+            BufferedImage resizedQRCode = resizedQRCodeGenerator.resizeQRCode(imagePath);
+
+            if (resizedQRCode != null) {
+                File imageFile = new File("resizedQRCode.png");
+                try
+                {
+                    ImageIO.write(resizedQRCode, "png", imageFile); //this is where the image is saved to
+                }
+                catch(Exception ex)
+                {
+                    return;
+                }
+
+                JOptionPane.showMessageDialog(this, "Your QR Code has been successfully resized and saved to: " + imageFile.getAbsolutePath());
+            }
         }
     }
 }
