@@ -7,7 +7,7 @@
 * Have any PNG and JPG image of a QR code on your computer
 * Open the tool (you'll need the latest JDK installed for that)
     * Link to JDK: https://www.oracle.com/java/technologies/downloads/
-* Press Pick Image of QR Code and then the tool will ask for an image
+* Press Select Image of QR Code and Resize and then the tool will ask for an image
 * Once you have picked your image, your image will automatically be created
 * Scan your QR code in game for Island Scan Points!
 
