@@ -28,7 +28,7 @@ public class ResizedQRCodeGenerator {
         }
 
         Graphics2D g2d = resizedQRCode.createGraphics();
-        g2d.setPaint(Color.cyan);
+        g2d.setPaint(Color.white);
         g2d.fillRect(0, 0, RESIZED_QR_CODE_WIDTH, RESIZED_QR_CODE_HEIGHT);
         qrCodeImage = resize(qrCodeImage, QR_CODE_X_POSITION_END - QR_CODE_X_POSITION, QR_CODE_Y_POSITION_END - QR_CODE_Y_POSITION);
         g2d.drawImage(qrCodeImage, QR_CODE_X_POSITION, QR_CODE_Y_POSITION, null); //draw section of image

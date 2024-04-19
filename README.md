@@ -4,7 +4,7 @@
 * A tool to resize QR codes to be scanned for the Island Scan feature primarily for Citra (which unfortunately ceased development)
     
 ### Setup to get this tool working
-* Have any PNG and JPG image of a QR code on your computer
+* Have any PNG or JPG image of a QR code on your computer
 * Open the tool (you'll need the latest JDK installed for that)
     * Link to JDK: https://www.oracle.com/java/technologies/downloads/
 * Press Select Image of QR Code and Resize and then the tool will ask for an image
