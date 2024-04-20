@@ -25,6 +25,9 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
     private ArrayList<File> imageFilesInFolder;
     private JButton generateQRCode, cropAndGenerateQRCode;
 
+    private JLabel autoDeleteOldQRCodes;
+    private JCheckBox autoDeleteOldQRCodesSetting;
+
     GridBagConstraints gridBagConstraints = null;
 
     public IslandScanQRCodeResizerUI()
@@ -37,6 +40,10 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
         cropAndGenerateQRCode = new JButton("Crop Image of QR Code and Resize");
         cropAndGenerateQRCode.addActionListener(this);
 
+        autoDeleteOldQRCodes = new JLabel("Auto Delete Old QR Codes");
+
+        autoDeleteOldQRCodesSetting = new JCheckBox();
+
         setLayout(new GridBagLayout());
         gridBagConstraints = new GridBagConstraints();
 
@@ -47,6 +54,14 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
         gridBagConstraints.gridx=1;
         gridBagConstraints.gridy=0;
         add(cropAndGenerateQRCode, gridBagConstraints);
+
+        gridBagConstraints.gridx=0;
+        gridBagConstraints.gridy=1;
+        add(autoDeleteOldQRCodes, gridBagConstraints);
+
+        gridBagConstraints.gridx=1;
+        gridBagConstraints.gridy=1;
+        add(autoDeleteOldQRCodesSetting, gridBagConstraints);
     }
 
     @Override
@@ -91,11 +106,19 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
                     String imageFilePath = imageFilesInFolder.get(i).getAbsolutePath();
                     BufferedImage resizedQRCode = resizedQRCodeGenerator.resizeQRCode(imageFilePath);
                     saveImage(resizedQRCode, imageFilePath);
+                    if (autoDeleteOldQRCodesSetting.isSelected()) {
+                        File imageFile = new File(imageFilePath);
+                        imageFile.delete();
+                    }
                 }
             }
             else {
                 BufferedImage resizedQRCode = resizedQRCodeGenerator.resizeQRCode(imagePath);
                 saveImage(resizedQRCode, imagePath);
+                if (autoDeleteOldQRCodesSetting.isSelected()) {
+                    File imageFile = new File(imagePath);
+                    imageFile.delete();
+                }
             }
 
             if (doesImageFileFolderNotExistOrIsEmpty()) {
@@ -118,7 +141,7 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
                 JOptionPane.showMessageDialog(this, "Please click the top left of your QR Code.");
 
                 imagePath = fileChooser.getSelectedFile().getAbsolutePath();
-                ImageCropper imageCropper = new ImageCropper(imagePath);
+                ImageCropper imageCropper = new ImageCropper(imagePath, autoDeleteOldQRCodesSetting.isSelected());
                 imageCropper.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 imageCropper.pack();
                 imageCropper.setVisible(true);

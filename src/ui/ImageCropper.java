@@ -17,8 +17,9 @@ public class ImageCropper extends JFrame implements MouseListener {
     private int clickCounter = 0;
     private int[] coordinates = new int[4];
     private String imagePath = "";
+    private boolean autoDeleteOldQRCode = false;
 
-    public ImageCropper(String imagePath) {
+    public ImageCropper(String imagePath, boolean autoDeleteOldQRCode) {
         setTitle("Image Cropper");
 
         this.container = getContentPane();
@@ -26,6 +27,8 @@ public class ImageCropper extends JFrame implements MouseListener {
 
         ImageIcon imageIcon = new ImageIcon(imagePath);
         this.imagePath = imagePath;
+
+        this.autoDeleteOldQRCode = autoDeleteOldQRCode;
 
         imageToCrop = new JLabel();
         imageToCrop.setIcon(imageIcon);
@@ -90,6 +93,10 @@ public class ImageCropper extends JFrame implements MouseListener {
             try
             {
                 ImageIO.write(resizedQRCode, "png", imageFile); //this is where the image is saved to
+                if (autoDeleteOldQRCode) {
+                    File oldQRCodeImageFile = new File(imagePath);
+                    oldQRCodeImageFile.delete();
+                }
                 JOptionPane.showMessageDialog(this, "Your QR Code has been successfully resized");
             }
             catch(Exception ex)
