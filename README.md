@@ -8,9 +8,11 @@
 * Open the tool (you'll need the latest JDK installed for that)
     * Link to JDK: https://www.oracle.com/java/technologies/downloads/
 * Press Select Image of QR Code and Resize and then the tool will ask for an image
+    * You can also use a folder of images if desired to resize all images in the folder
+* If you need to crop your QR Code, press Crop Image of QR Code and Resize instead and follow the prompts
 * Once you have picked your image, your image will automatically be created
 * Scan your QR code in game for Island Scan Points!
 
 ### Note
 * This was designed for the Generation 7 Pokemon games (Sun, Moon, Ultra Sun, and Ultra Moon).
-* I don't know if it'll work for any other 3DS games
+* I've tested Pokemon ORAS and that works as well, so this might be a general QR code tool for Citra

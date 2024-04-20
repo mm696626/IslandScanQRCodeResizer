@@ -27,6 +27,21 @@ public class ResizedQRCodeGenerator {
             return null;
         }
 
+        return createResizedQRCode(resizedQRCode, qrCodeImage);
+    }
+
+    public BufferedImage resizeQRCode(BufferedImage qrCodeImage) {
+        BufferedImage resizedQRCode = new BufferedImage(RESIZED_QR_CODE_WIDTH, RESIZED_QR_CODE_HEIGHT, BufferedImage.TYPE_INT_ARGB); //new image
+
+        if (qrCodeImage == null) {
+            //this is if the image couldn't be read
+            return null;
+        }
+
+        return createResizedQRCode(resizedQRCode, qrCodeImage);
+    }
+
+    private BufferedImage createResizedQRCode(BufferedImage resizedQRCode, BufferedImage qrCodeImage) {
         Graphics2D g2d = resizedQRCode.createGraphics();
         g2d.setPaint(Color.white);
         g2d.fillRect(0, 0, RESIZED_QR_CODE_WIDTH, RESIZED_QR_CODE_HEIGHT);

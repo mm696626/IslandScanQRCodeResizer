@@ -23,7 +23,7 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
     //where to get images from (if the option is selected)
     private String imageFolderPath = "";
     private ArrayList<File> imageFilesInFolder;
-    private JButton generateQRCode;
+    private JButton generateQRCode, cropAndGenerateQRCode;
 
     GridBagConstraints gridBagConstraints = null;
 
@@ -34,12 +34,19 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
         generateQRCode = new JButton("Select Image of QR Code and Resize");
         generateQRCode.addActionListener(this);
 
+        cropAndGenerateQRCode = new JButton("Crop Image of QR Code and Resize");
+        cropAndGenerateQRCode.addActionListener(this);
+
         setLayout(new GridBagLayout());
         gridBagConstraints = new GridBagConstraints();
 
         gridBagConstraints.gridx=0;
         gridBagConstraints.gridy=0;
         add(generateQRCode, gridBagConstraints);
+
+        gridBagConstraints.gridx=1;
+        gridBagConstraints.gridy=0;
+        add(cropAndGenerateQRCode, gridBagConstraints);
     }
 
     @Override
@@ -97,6 +104,26 @@ public class IslandScanQRCodeResizerUI extends JFrame implements ActionListener 
             else {
                 JOptionPane.showMessageDialog(this, "Your QR Codes have been successfully resized");
                 imageFilesInFolder = null;  //reset arraylist
+            }
+        }
+
+        if (e.getSource() == cropAndGenerateQRCode) {
+
+            JFileChooser fileChooser = new JFileChooser();
+            FileFilter imageFileFilter = new FileNameExtensionFilter("Image File","jpg", "jpeg", "png", "JPG", "JPEG", "PNG");
+            fileChooser.setFileFilter(imageFileFilter);
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int response = fileChooser.showOpenDialog(null);
+            if (response == JFileChooser.APPROVE_OPTION) {
+                JOptionPane.showMessageDialog(this, "Please click the top left of your QR Code.");
+
+                imagePath = fileChooser.getSelectedFile().getAbsolutePath();
+                ImageCropper imageCropper = new ImageCropper(imagePath);
+                imageCropper.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                imageCropper.pack();
+                imageCropper.setVisible(true);
+            } else {
+                return;
             }
         }
     }
